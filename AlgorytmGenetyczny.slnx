@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="AlgorytmGenetyczny.vcxproj" />
+  <Project Path="AlgorytmGenetyczny.vcxproj" Id="75c53f17-552e-45e7-9462-cbb5d95687c0" />
 </Solution>
