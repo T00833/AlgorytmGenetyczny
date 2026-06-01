@@ -3,9 +3,10 @@
 #include <cstdlib>
 #include <time.h>
 //
+#include "TParam.h"
 //#include "TPopulation.h"
 //#include "TKlasa.h"
-#include "TAlgorithm.h"
+//#include "TAlgorithm.h"
 
 using namespace std;
 
@@ -139,7 +140,7 @@ int main()
 	//wsk_obiekt3 = nullptr;
 
 	// TALGORITHM
-	srand(time(0));
+	/*srand(time(0));
 
 	unsigned int candidates_count = 5;
 	unsigned int max_population_count = 20;
@@ -148,7 +149,17 @@ int main()
 	TAlgorithm task{ candidates_count,
 					max_population_count,
 					min_improvement_proc };
-	task.run();
+	task.run();*/
 
+	// Lista inicjalizująca
+	srand(time(0));
+
+	TParam gen{ "gen1", 0, 10, 0.1 };
+	gen.info();
+
+	TParam gen_copy(gen);
+	gen_copy.info();
+
+	cout << "\n\n\n";
 	return 0;
 }
