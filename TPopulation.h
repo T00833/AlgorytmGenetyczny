@@ -4,7 +4,7 @@
 
 class TPopulation
 {
-	//unsigned int id;
+	static unsigned int _id;
 	unsigned int candidate_count;
 	std::vector<TCandidate> candidates;
 	double best_val = 0.0;
