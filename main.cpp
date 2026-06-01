@@ -1,10 +1,11 @@
 #include <iostream>
-#include <vector>
-//#include <cstdlib>
-//#include <time.h>
+//#include <vector>
+#include <cstdlib>
+#include <time.h>
 //
 //#include "TPopulation.h"
-#include "TKlasa.h"
+//#include "TKlasa.h"
+#include "TAlgorithm.h"
 
 using namespace std;
 
@@ -120,22 +121,34 @@ int main()
 
 	// DYNAMICZNE TWORZENIE OBIEKTÓW
 
-	TKlasa* wsk_obiekt1 = new TKlasa{ -3 };
-	TKlasa* wsk_obiekt2 = new TKlasa{ 0 };
-	TKlasa* wsk_obiekt3 = new TKlasa{ 5 };
-	TKlasa obiekt4{ -3 };
-	TKlasa obiekt5{ 2 };
+	//TKlasa* wsk_obiekt1 = new TKlasa{ -3 };
+	//TKlasa* wsk_obiekt2 = new TKlasa{ 0 };
+	//TKlasa* wsk_obiekt3 = new TKlasa{ 5 };
+	//TKlasa obiekt4{ -3 };
+	//TKlasa obiekt5{ 2 };
 
-	wsk_obiekt1->info();
-	(*wsk_obiekt2).info();
-	wsk_obiekt3->info();
+	//wsk_obiekt1->info();
+	//(*wsk_obiekt2).info();
+	//wsk_obiekt3->info();
 
-	delete wsk_obiekt1;
-	wsk_obiekt1 = nullptr;
-	delete wsk_obiekt2;
-	wsk_obiekt2 = nullptr;
-	delete wsk_obiekt3;
-	wsk_obiekt3 = nullptr;
+	//delete wsk_obiekt1;
+	//wsk_obiekt1 = nullptr;
+	//delete wsk_obiekt2;
+	//wsk_obiekt2 = nullptr;
+	//delete wsk_obiekt3;
+	//wsk_obiekt3 = nullptr;
+
+	// TALGORITHM
+	srand(time(0));
+
+	unsigned int candidates_count = 5;
+	unsigned int max_population_count = 20;
+	unsigned int min_improvement_proc = 2;
+
+	TAlgorithm task{ candidates_count,
+					max_population_count,
+					min_improvement_proc };
+	task.run();
 
 	return 0;
 }
