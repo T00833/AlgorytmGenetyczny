@@ -5,10 +5,18 @@
 
 using namespace std;
 
-TCandidate::TCandidate()
+TCandidate::TCandidate() : mark{ 0 }
 {
-	mark = 0;
 	rand_gens_val();
+}
+
+TCandidate::TCandidate(const TCandidate &original) : mark{ original.mark }
+{
+	for (int i = 0; i < GENS_COUNT; i++)
+	{
+		genotype[i].set_range(original.genotype[i].get_x_start(), original.genotype[i].get_x_end(), original.genotype[i].get_dx());
+		genotype[i].set_val(original.genotype[i].get_val());
+	}
 }
 
 void TCandidate::rate()

@@ -3,8 +3,8 @@
 #include <cstdlib>
 #include <time.h>
 //
-#include "TParam.h"
-//#include "TPopulation.h"
+//#include "TCandidate.h"
+#include "TPopulation.h"
 //#include "TKlasa.h"
 //#include "TAlgorithm.h"
 
@@ -161,5 +161,24 @@ int main()
 	gen_copy.info();
 
 	cout << "\n\n\n";
+
+	TCandidate os1{};
+	os1.rate();
+	os1.info();
+
+	TCandidate os1_copy{ os1 };
+	os1_copy.info();
+
+	cout << "\n\n\n";
+
+	TPopulation pop1{ 5 };
+	pop1.calculate();
+	pop1.info();
+
+	TPopulation pop_copy{ pop1 };
+	pop_copy.info();
+
+	cout << "\n\n\n";
+
 	return 0;
 }

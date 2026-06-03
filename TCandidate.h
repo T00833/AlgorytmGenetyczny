@@ -15,13 +15,14 @@ class TCandidate
 
 public:
 	TCandidate();
+	TCandidate(const TCandidate& original);
 
 	double get_mark() { return mark; };
 	void rate();
 	void info();
 
-	bool operator<(const TCandidate& other) const { return mark < other.mark; }
-	bool operator>(const TCandidate& other) const { return mark > other.mark; };
+	//bool operator<(const TCandidate& other) const { return mark < other.mark; }
+	//bool operator>(const TCandidate& other) const { return mark > other.mark; };
 
 private:
 	void rand_gens_val();

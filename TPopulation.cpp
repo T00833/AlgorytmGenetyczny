@@ -8,14 +8,24 @@ using namespace std;
 
 unsigned int TPopulation::_id = 0;
 
-TPopulation::TPopulation(unsigned int candidate_count)
+TPopulation::TPopulation(unsigned int candidate_count) : candidate_count{ candidate_count }
 {
     _id++;
-	this->candidate_count = candidate_count;
 	for (unsigned int i = 0; i < candidate_count; i++)
 	{
         candidates.push_back(TCandidate{});
 	}
+}
+
+TPopulation::TPopulation(const TPopulation& original) : candidate_count { original.candidate_count }
+{
+    _id++;
+    for (unsigned int i = 0; i < candidate_count; i++)
+    {
+        const TCandidate* wsk_os_org = original.get_candidate_wsk(i);
+        TCandidate copy{ *wsk_os_org };
+        candidates.push_back(copy);
+    }
 }
 
 //std::vector<TCandidate> TPopulation::quicksort(std::vector<TCandidate> t, int l, int p)
@@ -80,4 +90,10 @@ void TPopulation::info_best()
     while (candidates[i].get_mark() != best_val) i++;
     cout << "BEST: candidate#" << i;
     candidates[i].info();
+}
+
+const TCandidate* TPopulation::get_candidate_wsk(int _id) const
+{
+    const TCandidate* wsk = &candidates[_id];
+    return wsk;
 }

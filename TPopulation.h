@@ -12,6 +12,7 @@ class TPopulation
 
 public:
 	TPopulation(unsigned int candidate_count);
+	TPopulation(const TPopulation& original);
 
 	void calculate();
 	// std::vector<TCandidate> quicksort(std::vector<TCandidate> t, int l, int p);
@@ -23,4 +24,7 @@ public:
 
 	void info();
 	void info_best();
+
+private:
+	const TCandidate* get_candidate_wsk(int _id) const;
 };
