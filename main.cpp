@@ -1,9 +1,11 @@
 #include <iostream>
-//#include <vector>
+#include <vector>
 #include <cstdlib>
 #include <time.h>
 //
-//#include "TCandidate.h"
+#include "TCandidate.h"
+#include "TCandidate_Zad1.h"
+#include "TCandidate_Zad2.h"
 #include "TPopulation.h"
 //#include "TKlasa.h"
 //#include "TAlgorithm.h"
@@ -151,8 +153,9 @@ int main()
 					min_improvement_proc };
 	task.run();*/
 
-	// Lista inicjalizująca
-	srand(time(0));
+	// Lista inicjalizująca i konstruktory
+
+	/*srand(time(0));
 
 	TParam gen{ "gen1", 0, 10, 0.1 };
 	gen.info();
@@ -178,7 +181,75 @@ int main()
 	TPopulation pop_copy{ pop1 };
 	pop_copy.info();
 
-	cout << "\n\n\n";
+	cout << "\n\n\n";*/
+
+// DZIEDZICZENIE
+
+	/*srand(time(0));
+
+	TCandidate os1{};
+	os1.rate();
+	os1.info();
+
+	TCandidate_Zad1 os1_Zad1{};
+	os1_Zad1.rate();
+	os1_Zad1.info();
+
+	TCandidate_Zad2 os_zad2{};
+	os_zad2.rate();
+	os_zad2.info();
+
+
+	TCandidate_Zad2 os_zad2_c{os_zad2};
+	os_zad2.rate();
+	os_zad2.info();
+
+	cout << "\n\n\n";*/
+
+// POLIMORFIZM (F. WIRTUALNE)
+	srand(time(0));
+
+	//TCandidate* os = new TCandidate_Zad1{};
+	//os->rate();
+	//os->info();
+	//delete os;
+
+	//os = new TCandidate_Zad2{};
+	//os->rate();
+	//os->info();
+	//delete os;
+
+	//vector<TCandidate*> candidates;
+
+	//candidates.push_back(new TCandidate{});
+	//candidates.push_back(new TCandidate_Zad1{});
+	//candidates.push_back(new TCandidate_Zad2{});
+
+	//for (int i = 0; i < candidates.size(); i++)
+	//{
+	//	candidates[i]->rate();
+	//	candidates[i]->info();
+	//}
+
+	//for (int i = 0; i < candidates.size(); i++)
+	//{
+	//	delete candidates[i];
+	//}
+
+	//cout << "\n\n\n";
+
+	TPopulation pop1{ 5 };
+	pop1.calculate();
+	pop1.info();
+
+	TPopulation pop_copy{ pop1 };
+	pop_copy.info();
+
+	TPopulation pop2{ 2 };
+	pop2.calculate();
+	pop2.info();
+
+	pop2.choose_candidates();
 
 	return 0;
 }

@@ -5,6 +5,7 @@
 
 class TCandidate
 {
+protected:
 	TParam genotype[GENS_COUNT] = 
 	{
 		TParam("x1", 0, 10, 1),
@@ -18,12 +19,12 @@ public:
 	TCandidate(const TCandidate& original);
 
 	double get_mark() { return mark; };
-	void rate();
+	virtual void rate();
 	void info();
 
 	//bool operator<(const TCandidate& other) const { return mark < other.mark; }
 	//bool operator>(const TCandidate& other) const { return mark > other.mark; };
 
-private:
+protected:
 	void rand_gens_val();
 };

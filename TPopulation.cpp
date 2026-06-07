@@ -13,7 +13,7 @@ TPopulation::TPopulation(unsigned int candidate_count) : candidate_count{ candid
     _id++;
 	for (unsigned int i = 0; i < candidate_count; i++)
 	{
-        candidates.push_back(TCandidate{});
+        candidates.push_back(new TCandidate{});
 	}
 }
 
@@ -24,7 +24,16 @@ TPopulation::TPopulation(const TPopulation& original) : candidate_count { origin
     {
         const TCandidate* wsk_os_org = original.get_candidate_wsk(i);
         TCandidate copy{ *wsk_os_org };
-        candidates.push_back(copy);
+        candidates.push_back(&copy);
+    }
+}
+
+TPopulation::~TPopulation()
+{
+    for (int i = 0; i < candidates.size(); i++)
+    {
+        delete candidates[i];
+        cout << "\n\nUsunieto candidate #" << i << " z Populacji #" << _id << "\n\n";
     }
 }
 
@@ -53,8 +62,8 @@ void TPopulation::calculate()
 
 	for (unsigned int i = 0; i < candidate_count; i++)
 	{
-		candidates[i].rate();
-        double val = candidates[i].get_mark();
+		candidates[i]->rate();
+        double val = candidates[i]->get_mark();
 
         if (i == 0) best_val = val;
         else        best_val = max(best_val, val);
@@ -63,11 +72,11 @@ void TPopulation::calculate()
     this->best_val = best_val;
 }
 
-TCandidate TPopulation::get_best_candidate()
+TCandidate* TPopulation::get_best_candidate()
 {
     int i = 0;
 
-    while (candidates[i].get_mark() != best_val) i++;
+    while (candidates[i]->get_mark() != best_val) i++;
 
     return candidates[i];
 }
@@ -79,7 +88,7 @@ void TPopulation::info()
 
     for (int i = 0; i < candidate_count; i++)
     {
-        cout << "== candidate#" << i << ": " << candidates[i].get_mark() << "\n";
+        cout << "== candidate#" << i << ": " << candidates[i]->get_mark() << "\n";
     }
     cout << "============================\n\n";
 }
@@ -87,13 +96,84 @@ void TPopulation::info()
 void TPopulation::info_best()
 {
     unsigned int i = 0;
-    while (candidates[i].get_mark() != best_val) i++;
+    while (candidates[i]->get_mark() != best_val) i++;
     cout << "BEST: candidate#" << i;
-    candidates[i].info();
+    candidates[i]->info();
 }
+
+void TPopulation::choose_candidates()
+    {
+        int no, t, r;        
+        cout << "\n\n";
+        do
+        {
+            cout << "Ilu osobnikow utworzyc? ";
+            cin >> no;
+            cout << endl;
+        } while (no < 1);
+
+        do
+        {
+            cout << "Czy osobnicy beda rozni czy tacy sami?\n 1->TAK\n0->NIE\n ";
+            cin >> r;
+            cout << endl;
+        } while (r != 0 && r != 1);
+
+        switch (r)
+        {
+            case 0:
+                do
+                {
+                    cout << "Ktory osobnik [0-2]: ";
+                    cin >> t;
+                    cout << endl;
+                } while (t < 0 || t > 2);
+
+                switch (t)
+                {
+                    case 0:
+                        for(int i = 0; i < no; i++) candidates.push_back(new TCandidate{});
+                        break;
+                    case 1:
+                        for (int i = 0; i < no; i++) candidates.push_back(new TCandidate_Zad1{});
+                        break;
+                    case 2:
+                        for (int i = 0; i < no; i++) candidates.push_back(new TCandidate_Zad2{});
+                        break;
+                }
+                break;
+
+            case 1:
+                for (int i = 0; i < no; i++)
+                {
+                    do
+                    {
+                        cout << "Ktory osobnik [0-2]: ";
+                        cin >> t;
+                        cout << endl;
+                    } while (t < 0 || t > 2);
+
+                    switch (t)
+                    {
+                    case 0:
+                        for (int i = 0; i < no; i++) candidates.push_back(new TCandidate{});
+                        break;
+                    case 1:
+                        for (int i = 0; i < no; i++) candidates.push_back(new TCandidate_Zad1{});
+                        break;
+                    case 2:
+                        for (int i = 0; i < no; i++) candidates.push_back(new TCandidate_Zad2{});
+                        break;
+                    }
+
+                    cout << "Dodano " << i << "/" << no << endl;
+                }
+                break;
+        }
+    }
 
 const TCandidate* TPopulation::get_candidate_wsk(int _id) const
 {
-    const TCandidate* wsk = &candidates[_id];
+    const TCandidate* wsk = candidates[_id];
     return wsk;
 }
