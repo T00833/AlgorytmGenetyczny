@@ -3,10 +3,10 @@
 #include <cstdlib>
 #include <time.h>
 //
-//#include "TCandidate.h"
-//#include "TCandidate_Zad1.h"
-//#include "TCandidate_Zad2.h"
-#include "TPopulation.h"
+#include "TCandidate.h"
+#include "TCandidate_Zad1.h"
+#include "TCandidate_Zad2.h"
+//#include "TPopulation.h"
 //#include "TKlasa.h"
 //#include "TAlgorithm.h"
 
@@ -207,7 +207,7 @@ int main()
 	cout << "\n\n\n";*/
 
 // POLIMORFIZM (F. WIRTUALNE)
-	srand(time(0));
+	//srand(time(0));
 
 	//TCandidate* os = new TCandidate_Zad1{};
 	//os->rate();
@@ -238,20 +238,29 @@ int main()
 
 	//cout << "\n\n\n";
 
-	TPopulation pop1{ 5 };
-	pop1.calculate();
-	pop1.info();
+	// TPopulation pop1{ 5 };
+	// pop1.calculate();
+	// pop1.info();
 
-	TPopulation pop_copy{ pop1 };
-	pop_copy.info();
+	// TPopulation pop_copy{ pop1 };
+	// pop_copy.info();
 
-	TPopulation pop2{ 2 };
-	pop2.calculate();
-	pop2.info();
+	// TPopulation pop2{ 2 };
+	// pop2.calculate();
+	// pop2.info();
 
-	pop2.choose_candidates();
-	pop2.calculate();
-	pop2.info();
+	// pop2.choose_candidates();
+	// pop2.calculate();
+	// pop2.info();
+
+// KLASY ABSTRAKCYJNE - dowolna ilość genów
+	srand(time(0));
+
+	TCandidate os{};
+	os.rate();
+	os.info();
+
+	std::cout << "\n\n\n";
 
 	return 0;
 }
