@@ -23,8 +23,7 @@ TPopulation::TPopulation(const TPopulation& original) : candidate_count { origin
     for (unsigned int i = 0; i < candidate_count; i++)
     {
         const TCandidate* wsk_os_org = original.get_candidate_wsk(i);
-        TCandidate copy{ *wsk_os_org };
-        candidates.push_back(&copy);
+        candidates.push_back(wsk_os_org->clone());
     }
 }
 
@@ -33,7 +32,7 @@ TPopulation::~TPopulation()
     for (int i = 0; i < candidates.size(); i++)
     {
         delete candidates[i];
-        cout << "\n\nUsunieto candidate #" << i << " z Populacji #" << _id << "\n\n";
+        //cout << "\n\nUsunieto candidate #" << i << " z Populacji #" << _id << "\n\n";
     }
 }
 
@@ -112,9 +111,11 @@ void TPopulation::choose_candidates()
             cout << endl;
         } while (no < 1);
 
+        candidate_count += no;
+
         do
         {
-            cout << "Czy osobnicy beda rozni czy tacy sami?\n 1->TAK\n0->NIE\n ";
+            cout << "Czy osobnicy beda rozni czy tacy sami?\n0->TACY SAMI\n1->ROZNI\n ";
             cin >> r;
             cout << endl;
         } while (r != 0 && r != 1);
@@ -166,7 +167,7 @@ void TPopulation::choose_candidates()
                         break;
                     }
 
-                    cout << "Dodano " << i << "/" << no << endl;
+                    cout << "Dodano " << i+1 << "/" << no << endl;
                 }
                 break;
         }

@@ -12,9 +12,10 @@ public:
 	}
 
 	TCandidate_Zad2(const TCandidate_Zad2& original) : TCandidate(original) {}
+	TCandidate* clone() const override { return new TCandidate_Zad2(*this); }
 
 private:
-	void set_gens_range();
+	inline void set_gens_range();
 };
 
 void TCandidate_Zad2::set_gens_range()

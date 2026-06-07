@@ -3,9 +3,9 @@
 #include <cstdlib>
 #include <time.h>
 //
-#include "TCandidate.h"
-#include "TCandidate_Zad1.h"
-#include "TCandidate_Zad2.h"
+//#include "TCandidate.h"
+//#include "TCandidate_Zad1.h"
+//#include "TCandidate_Zad2.h"
 #include "TPopulation.h"
 //#include "TKlasa.h"
 //#include "TAlgorithm.h"
@@ -250,6 +250,8 @@ int main()
 	pop2.info();
 
 	pop2.choose_candidates();
+	pop2.calculate();
+	pop2.info();
 
 	return 0;
 }

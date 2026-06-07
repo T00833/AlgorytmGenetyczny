@@ -17,6 +17,7 @@ protected:
 public:
 	TCandidate();
 	TCandidate(const TCandidate& original);
+	virtual TCandidate* clone() const { return new TCandidate(*this); }
 
 	double get_mark() { return mark; };
 	virtual void rate();
