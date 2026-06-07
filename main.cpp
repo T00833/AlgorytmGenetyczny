@@ -6,6 +6,7 @@
 #include "TCandidate.h"
 #include "TCandidate_Zad1.h"
 #include "TCandidate_Zad2.h"
+#include "TCandidate_Zad3.h"
 //#include "TPopulation.h"
 //#include "TKlasa.h"
 //#include "TAlgorithm.h"
@@ -263,6 +264,10 @@ int main()
 	TCandidate_Zad2 os_Zad2{};
 	os_Zad2.rate();
 	os_Zad2.info();
+	
+	TCandidate_Zad3 os_Zad3{};
+	os_Zad3.rate();
+	os_Zad3.info();
 
 	std::cout << "\n\n\n";
 
