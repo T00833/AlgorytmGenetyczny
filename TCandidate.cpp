@@ -14,6 +14,7 @@ TCandidate::TCandidate() : mark{ 0 }
 
 TCandidate::TCandidate(const TCandidate &original) : mark{ original.mark }
 {
+	init_vector();
 	for (int i = 0; i < original.gens_count; i++)
 	{
 		genotype[i].set_range(original.genotype[i].get_x_start(), original.genotype[i].get_x_end(), original.genotype[i].get_dx());
