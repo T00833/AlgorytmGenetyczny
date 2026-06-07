@@ -256,9 +256,13 @@ int main()
 // KLASY ABSTRAKCYJNE - dowolna ilość genów
 	srand(time(0));
 
-	TCandidate os{};
-	os.rate();
-	os.info();
+	TCandidate_Zad1 os_Zad1{};
+	os_Zad1.rate();
+	os_Zad1.info();
+
+	TCandidate_Zad2 os_Zad2{};
+	os_Zad2.rate();
+	os_Zad2.info();
 
 	std::cout << "\n\n\n";
 

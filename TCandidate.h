@@ -20,17 +20,17 @@ protected:
 public:
 	TCandidate();
 	TCandidate(const TCandidate& original);
-	virtual TCandidate* clone() const { return new TCandidate(*this); }
+	virtual TCandidate* clone() const = 0;
 
 	double get_mark() { return mark; };
-	virtual void rate();
+	virtual void rate() = 0;
 	void info();
 
 	//bool operator<(const TCandidate& other) const { return mark < other.mark; }
 	//bool operator>(const TCandidate& other) const { return mark > other.mark; };
 
 protected:
-	void init_vector();
+	virtual void init_vector() = 0;
 	void rand_gens_val();
 	double get_gen_val(int gen_id) const { return genotype[gen_id].get_val(); }
 };

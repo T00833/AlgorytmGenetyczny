@@ -7,14 +7,14 @@ using namespace std;
 
 TCandidate::TCandidate() : mark{ 0 }
 {
-	init_vector();
+	//init_vector();
 	gens_count = genotype.size();
 	rand_gens_val();
 }
 
 TCandidate::TCandidate(const TCandidate &original) : mark{ original.mark }
 {
-	init_vector();
+	//init_vector();
 	for (int i = 0; i < original.gens_count; i++)
 	{
 		genotype[i].set_range(original.genotype[i].get_x_start(), original.genotype[i].get_x_end(), original.genotype[i].get_dx());
@@ -24,19 +24,19 @@ TCandidate::TCandidate(const TCandidate &original) : mark{ original.mark }
 	gens_count = genotype.size();
 }
 
-void TCandidate::rate()
-{
-	double x1 = genotype[0].get_val();
-	double x2 = genotype[1].get_val();
+// void TCandidate::rate()
+// {
+// 	double x1 = genotype[0].get_val();
+// 	double x2 = genotype[1].get_val();
 
-	mark = pow(x1, 2) + x2;
-}
+// 	mark = pow(x1, 2) + x2;
+// }
 
-void TCandidate::init_vector()
-{
-	genotype.push_back(TParam("x1", 2, 100, 1));
-	genotype.push_back(TParam("x2", 2, 100, 1));
-}
+// void TCandidate::init_vector()
+// {
+// 	genotype.push_back(TParam("x1", 2, 100, 1));
+// 	genotype.push_back(TParam("x2", 2, 100, 1));
+// }
 
 void TCandidate::rand_gens_val()
 {
