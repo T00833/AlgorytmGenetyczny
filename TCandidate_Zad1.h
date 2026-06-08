@@ -10,7 +10,9 @@ public:
 		init_vector();
 	}
 	TCandidate_Zad1(const TCandidate_Zad1& original) : TCandidate(original) {}
-	TCandidate* clone() const override { return new TCandidate_Zad1(*this); }
+
+	TCandidate* create() override { return new TCandidate_Zad1(); }
+	TCandidate* clone() const override { return new TCandidate_Zad1{ *this }; }
 
 	void rate() override
 	{

@@ -131,6 +131,7 @@
     <ClInclude Include="TCandidate.h" />
     <ClInclude Include="TCandidate_Zad1.h" />
     <ClInclude Include="TCandidate_Zad2.h" />
+    <ClInclude Include="TCandidate_Zad3.h" />
     <ClInclude Include="TKlasa.h" />
     <ClInclude Include="TParam.h" />
     <ClInclude Include="TPopulation.h" />

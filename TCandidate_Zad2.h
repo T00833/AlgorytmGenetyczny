@@ -12,6 +12,8 @@ public:
 	}
 
 	TCandidate_Zad2(const TCandidate_Zad2& original) : TCandidate(original) {}
+
+	TCandidate* create() override { return new TCandidate_Zad2(); }
 	TCandidate* clone() const override { return new TCandidate_Zad2(*this); }
 
 	void rate()

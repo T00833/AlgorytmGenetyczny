@@ -11,7 +11,8 @@ TAlgorithm::TAlgorithm(unsigned int candidates_count,
 {
 	stop_max_population_count = max_population_count;
 	stop_min_improvement_proc = min_improvement_proc;
-	wsk_population_pres = new TPopulation{ candidates_count };
+	TCandidate_Zad2 pattern;
+	wsk_population_pres = new TPopulation{ candidates_count, &pattern };
 }
 
 TAlgorithm::~TAlgorithm()
@@ -46,7 +47,8 @@ void TAlgorithm::run()
 			wsk_population_prev = wsk_population_pres;
 
 			// chwilowe rozwiazanie - tworzenie kolejnej losowej populacji
-			wsk_population_pres = new TPopulation{ candidates_count };
+			TCandidate_Zad2 pattern;
+			wsk_population_pres = new TPopulation{ candidates_count, &pattern };
 		}
 
 		if (wsk_population_pres->get_id() == 25) return;

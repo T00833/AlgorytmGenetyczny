@@ -20,6 +20,8 @@ protected:
 public:
 	TCandidate();
 	TCandidate(const TCandidate& original);
+
+	virtual TCandidate* create() = 0;
 	virtual TCandidate* clone() const = 0;
 
 	double get_mark() { return mark; };

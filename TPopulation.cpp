@@ -6,24 +6,29 @@
 
 using namespace std;
 
-unsigned int TPopulation::_id = 0;
+unsigned int TPopulation::population_count = 0;
 
-TPopulation::TPopulation(unsigned int candidate_count) : candidate_count{ candidate_count }
+TPopulation::TPopulation(unsigned int candidate_count, TCandidate* pattern) : candidate_count{ candidate_count }
 {
-    _id++;
-	for (unsigned int i = 0; i < candidate_count; i++)
-	{
-        candidates.push_back(new TCandidate{});
-	}
+    _id = population_count;
+    population_count++;
+
+    this->candidate_count = candidate_count;
+
+    for (unsigned int i = 0; i < candidate_count; i++) candidates.push_back(pattern->create());
 }
 
-TPopulation::TPopulation(const TPopulation& original) : candidate_count { original.candidate_count }
+TPopulation::TPopulation(const TPopulation& original) : candidate_count { original.get_candidates_count() }, best_val { original.get_best_val() }
 {
-    _id++;
+    _id = population_count;
+    population_count++;
+
     for (unsigned int i = 0; i < candidate_count; i++)
     {
         const TCandidate* wsk_os_org = original.get_candidate_wsk(i);
         candidates.push_back(wsk_os_org->clone());
+
+        cout << "Liczba osobników: " << candidates.size() << endl;
     }
 }
 
@@ -103,73 +108,50 @@ void TPopulation::info_best()
 void TPopulation::choose_candidates()
     {
         int no, t, r;        
-        cout << "\n\n";
-        do
-        {
-            cout << "Ilu osobnikow utworzyc? ";
-            cin >> no;
-            cout << endl;
-        } while (no < 1);
 
-        candidate_count += no;
 
         do
         {
-            cout << "Czy osobnicy beda rozni czy tacy sami?\n0->TACY SAMI\n1->ROZNI\n ";
+            cout << "Ile typow osobnikow chcesz dodac? (max 3) ";
             cin >> r;
             cout << endl;
-        } while (r != 0 && r != 1);
+        } while (r < 0 && r > 3);
 
-        switch (r)
+        for (int j = 0; j < r; j++)
         {
-            case 0:
-                do
-                {
-                    cout << "Ktory osobnik [0-2]: ";
-                    cin >> t;
-                    cout << endl;
-                } while (t < 0 || t > 2);
 
-                switch (t)
-                {
-                    case 0:
-                        for(int i = 0; i < no; i++) candidates.push_back(new TCandidate{});
-                        break;
-                    case 1:
-                        for (int i = 0; i < no; i++) candidates.push_back(new TCandidate_Zad1{});
-                        break;
-                    case 2:
-                        for (int i = 0; i < no; i++) candidates.push_back(new TCandidate_Zad2{});
-                        break;
-                }
-                break;
+            do
+            {
+                cout << "Ktory osobnik [1-3]: ";
+                cin >> t;
+                cout << endl;
+            } while (t < 1 || t > 3);
 
+            cout << "\n\n";
+            do
+            {
+                cout << "Ilu osobnikow utworzyc? ";
+                cin >> no;
+                cout << endl;
+            } while (no < 1);
+
+            candidate_count += no;
+
+            switch (t)
+            {
             case 1:
-                for (int i = 0; i < no; i++)
-                {
-                    do
-                    {
-                        cout << "Ktory osobnik [0-2]: ";
-                        cin >> t;
-                        cout << endl;
-                    } while (t < 0 || t > 2);
-
-                    switch (t)
-                    {
-                    case 0:
-                        for (int i = 0; i < no; i++) candidates.push_back(new TCandidate{});
-                        break;
-                    case 1:
-                        for (int i = 0; i < no; i++) candidates.push_back(new TCandidate_Zad1{});
-                        break;
-                    case 2:
-                        for (int i = 0; i < no; i++) candidates.push_back(new TCandidate_Zad2{});
-                        break;
-                    }
-
-                    cout << "Dodano " << i+1 << "/" << no << endl;
-                }
+                for (int i = 0; i < no; i++) candidates.push_back(new TCandidate_Zad1{});
                 break;
+            case 2:
+                for (int i = 0; i < no; i++) candidates.push_back(new TCandidate_Zad2{});
+                break;
+            case 3:
+                for (int i = 0; i < no; i++) candidates.push_back(new TCandidate_Zad3{});
+                break;
+            default:
+                for (int i = 0; i < no; i++) candidates.push_back(new TCandidate_Zad1{});
+                break;
+            }
         }
     }
 
