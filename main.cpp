@@ -9,7 +9,7 @@
 //#include "TCandidate_Zad3.h"
 #include "TPopulation.h"
 //#include "TKlasa.h"
-//#include "TAlgorithm.h"
+#include "TAlgorithm.h"
 
 using namespace std;
 
@@ -184,112 +184,124 @@ int main()
 
 	cout << "\n\n\n";*/
 
-// DZIEDZICZENIE
+	// DZIEDZICZENIE
 
-	/*srand(time(0));
+		/*srand(time(0));
 
-	TCandidate os1{};
-	os1.rate();
-	os1.info();
+		TCandidate os1{};
+		os1.rate();
+		os1.info();
 
-	TCandidate_Zad1 os1_Zad1{};
-	os1_Zad1.rate();
-	os1_Zad1.info();
+		TCandidate_Zad1 os1_Zad1{};
+		os1_Zad1.rate();
+		os1_Zad1.info();
 
-	TCandidate_Zad2 os_zad2{};
-	os_zad2.rate();
-	os_zad2.info();
+		TCandidate_Zad2 os_zad2{};
+		os_zad2.rate();
+		os_zad2.info();
 
 
-	TCandidate_Zad2 os_zad2_c{os_zad2};
-	os_zad2.rate();
-	os_zad2.info();
+		TCandidate_Zad2 os_zad2_c{os_zad2};
+		os_zad2.rate();
+		os_zad2.info();
 
-	cout << "\n\n\n";*/
+		cout << "\n\n\n";*/
 
-// POLIMORFIZM (F. WIRTUALNE)
-	//srand(time(0));
+		// POLIMORFIZM (F. WIRTUALNE)
+			//srand(time(0));
 
-	//TCandidate* os = new TCandidate_Zad1{};
-	//os->rate();
-	//os->info();
-	//delete os;
+			//TCandidate* os = new TCandidate_Zad1{};
+			//os->rate();
+			//os->info();
+			//delete os;
 
-	//os = new TCandidate_Zad2{};
-	//os->rate();
-	//os->info();
-	//delete os;
+			//os = new TCandidate_Zad2{};
+			//os->rate();
+			//os->info();
+			//delete os;
 
-	//vector<TCandidate*> candidates;
+			//vector<TCandidate*> candidates;
 
-	//candidates.push_back(new TCandidate{});
-	//candidates.push_back(new TCandidate_Zad1{});
-	//candidates.push_back(new TCandidate_Zad2{});
+			//candidates.push_back(new TCandidate{});
+			//candidates.push_back(new TCandidate_Zad1{});
+			//candidates.push_back(new TCandidate_Zad2{});
 
-	//for (int i = 0; i < candidates.size(); i++)
-	//{
-	//	candidates[i]->rate();
-	//	candidates[i]->info();
-	//}
+			//for (int i = 0; i < candidates.size(); i++)
+			//{
+			//	candidates[i]->rate();
+			//	candidates[i]->info();
+			//}
 
-	//for (int i = 0; i < candidates.size(); i++)
-	//{
-	//	delete candidates[i];
-	//}
+			//for (int i = 0; i < candidates.size(); i++)
+			//{
+			//	delete candidates[i];
+			//}
 
-	//cout << "\n\n\n";
+			//cout << "\n\n\n";
 
-	// TPopulation pop1{ 5 };
-	// pop1.calculate();
-	// pop1.info();
+			// TPopulation pop1{ 5 };
+			// pop1.calculate();
+			// pop1.info();
 
-	// TPopulation pop_copy{ pop1 };
-	// pop_copy.info();
+			// TPopulation pop_copy{ pop1 };
+			// pop_copy.info();
 
-	// TPopulation pop2{ 2 };
-	// pop2.calculate();
-	// pop2.info();
+			// TPopulation pop2{ 2 };
+			// pop2.calculate();
+			// pop2.info();
 
-	// pop2.choose_candidates();
-	// pop2.calculate();
-	// pop2.info();
+			// pop2.choose_candidates();
+			// pop2.calculate();
+			// pop2.info();
 
-// KLASY ABSTRAKCYJNE - dowolna ilość genów
-	/*srand(time(0));
+		// KLASY ABSTRAKCYJNE - dowolna ilość genów
+			/*srand(time(0));
 
-	TCandidate_Zad1 os_Zad1{};
-	os_Zad1.rate();
-	os_Zad1.info();
+			TCandidate_Zad1 os_Zad1{};
+			os_Zad1.rate();
+			os_Zad1.info();
 
-	TCandidate_Zad2 os_Zad2{};
-	os_Zad2.rate();
-	os_Zad2.info();
-	
-	TCandidate_Zad3 os_Zad3{};
-	os_Zad3.rate();
-	os_Zad3.info();*/
+			TCandidate_Zad2 os_Zad2{};
+			os_Zad2.rate();
+			os_Zad2.info();
 
-	//cout << "\n\n\n";
-	
+			TCandidate_Zad3 os_Zad3{};
+			os_Zad3.rate();
+			os_Zad3.info();*/
+
+			//cout << "\n\n\n";
+
 	srand(time(0));
-	TCandidate_Zad3 pattern;
-	
-	 TPopulation pop1{ 5, &pattern };
-	 pop1.calculate();
-	 pop1.info();
 
-	 TPopulation pop_copy{ pop1 };
-	 pop_copy.info();
+	TCandidate* pattern;
+	pattern = new TCandidate_Zad3{};
 
-	 TPopulation pop2{ 2, &pattern };
-	 pop2.calculate();
-	 pop2.info();
+	//TPopulation pop1{ 5, pattern };
+	//pop1.calculate();
+	//pop1.info();
 
-	 pop2.choose_candidates();
-	 pop2.calculate();
-	 pop2.info();
-	 TCandidate* best = pop2.get_best_candidate();
-	 best->info();
+	//TPopulation pop_copy{ pop1 };
+	//pop_copy.info();
+
+	//TPopulation pop2{ 2, pattern };
+	//pop2.calculate();
+	//pop2.info();
+
+	//pop2.choose_candidates();
+	//pop2.calculate();
+	//pop2.info();
+	//TCandidate* best = pop2.get_best_candidate();
+	//best->info();
+
+	unsigned int candidates_count = 5;
+	unsigned int max_population_count = 20;
+	unsigned int min_improvement_proc = 2;
+
+	TAlgorithm task{ pattern,
+					candidates_count,
+					max_population_count,
+					min_improvement_proc };
+	task.run();
 
 	std::cout << "\n\n\n";
 

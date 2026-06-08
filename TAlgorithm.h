@@ -7,11 +7,13 @@ class TAlgorithm
 	unsigned int stop_max_population_count;
 	unsigned int stop_min_improvement_proc;
 
+	TCandidate* pattern = nullptr;
 	TPopulation* wsk_population_pres = nullptr;
 	TPopulation* wsk_population_prev = nullptr;
 
 public:
-	TAlgorithm(unsigned int candidates_count = 10,
+	TAlgorithm(TCandidate* pattern,
+		unsigned int candidates_count = 10,
 		unsigned int max_population_count = 20,
 		unsigned int min_improvement_proc = 3);
 
