@@ -24,6 +24,8 @@ public:
 	virtual TCandidate* create() = 0;
 	virtual TCandidate* clone() const = 0;
 
+	void copy_gens(const TCandidate& original);
+
 	double get_mark() { return mark; };
 	virtual void rate() = 0;
 	void info();

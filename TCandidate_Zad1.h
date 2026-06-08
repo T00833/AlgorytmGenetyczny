@@ -8,8 +8,13 @@ public:
 	TCandidate_Zad1() : TCandidate() 
 	{
 		init_vector();
+		rand_gens_val();
 	}
-	TCandidate_Zad1(const TCandidate_Zad1& original) : TCandidate(original) {}
+	TCandidate_Zad1(const TCandidate_Zad1& original) : TCandidate(original)
+	{
+		init_vector();
+		copy_gens(original);
+	}
 
 	TCandidate* create() override { return new TCandidate_Zad1(); }
 	TCandidate* clone() const override { return new TCandidate_Zad1{ *this }; }
@@ -22,7 +27,7 @@ public:
 		mark = 2 * (x1 + x2);
 	}
 protected:
-	void init_vector();
+	inline void init_vector();
 };
 
 void TCandidate_Zad1::init_vector()

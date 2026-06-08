@@ -28,7 +28,7 @@ TPopulation::TPopulation(const TPopulation& original) : candidate_count { origin
         const TCandidate* wsk_os_org = original.get_candidate_wsk(i);
         candidates.push_back(wsk_os_org->clone());
 
-        cout << "Liczba osobników: " << candidates.size() << endl;
+        cout << "Liczba osobnikow: " << candidates.size() << endl;
     }
 }
 

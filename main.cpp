@@ -3,11 +3,11 @@
 #include <cstdlib>
 #include <time.h>
 //
-#include "TCandidate.h"
-#include "TCandidate_Zad1.h"
-#include "TCandidate_Zad2.h"
-#include "TCandidate_Zad3.h"
-//#include "TPopulation.h"
+//#include "TCandidate.h"
+//#include "TCandidate_Zad1.h"
+//#include "TCandidate_Zad2.h"
+//#include "TCandidate_Zad3.h"
+#include "TPopulation.h"
 //#include "TKlasa.h"
 //#include "TAlgorithm.h"
 
@@ -255,7 +255,7 @@ int main()
 	// pop2.info();
 
 // KLASY ABSTRAKCYJNE - dowolna ilość genów
-	srand(time(0));
+	/*srand(time(0));
 
 	TCandidate_Zad1 os_Zad1{};
 	os_Zad1.rate();
@@ -267,7 +267,29 @@ int main()
 	
 	TCandidate_Zad3 os_Zad3{};
 	os_Zad3.rate();
-	os_Zad3.info();
+	os_Zad3.info();*/
+
+	//cout << "\n\n\n";
+	
+	srand(time(0));
+	TCandidate_Zad3 pattern;
+	
+	 TPopulation pop1{ 5, &pattern };
+	 pop1.calculate();
+	 pop1.info();
+
+	 TPopulation pop_copy{ pop1 };
+	 pop_copy.info();
+
+	 TPopulation pop2{ 2, &pattern };
+	 pop2.calculate();
+	 pop2.info();
+
+	 pop2.choose_candidates();
+	 pop2.calculate();
+	 pop2.info();
+	 TCandidate* best = pop2.get_best_candidate();
+	 best->info();
 
 	std::cout << "\n\n\n";
 

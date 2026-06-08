@@ -5,22 +5,19 @@
 
 using namespace std;
 
-TCandidate::TCandidate() : mark{ 0 }
-{
-	//init_vector();
-	gens_count = genotype.size();
-	rand_gens_val();
-}
+TCandidate::TCandidate() : mark{ 0 }, gens_count{ 0 } {}
 
-TCandidate::TCandidate(const TCandidate &original) : mark{ original.mark }
+TCandidate::TCandidate(const TCandidate &original) : mark{ original.mark } {}
+
+void TCandidate::copy_gens(const TCandidate& original)
 {
-	//init_vector();
 	for (int i = 0; i < original.gens_count; i++)
 	{
-		genotype[i].set_range(original.genotype[i].get_x_start(), original.genotype[i].get_x_end(), original.genotype[i].get_dx());
+		genotype[i].set_range(original.genotype[i].get_x_start(),
+			original.genotype[i].get_x_end(),
+			original.genotype[i].get_dx());
 		genotype[i].set_val(original.genotype[i].get_val());
 	}
-
 	gens_count = genotype.size();
 }
 
