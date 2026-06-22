@@ -10,10 +10,11 @@ class TPopulation
 	static unsigned int population_count;
 	unsigned int _id;
 	unsigned int candidate_count;
-	std::vector<TCandidate*> candidates;
 	double best_val = 0.0;
 
 public:
+	std::vector<TCandidate*> candidates;
+
 	TPopulation(unsigned int candidate_count, TCandidate* pattern);
 	TPopulation(const TPopulation& original);
 	~TPopulation();
@@ -30,7 +31,7 @@ public:
 	void info_best();
 
 	void choose_candidates();
-	TCandidate* rulette();
+	unsigned int rulette();
 
 private:
 	const TCandidate* get_candidate_wsk(int _id) const;

@@ -1,7 +1,8 @@
 #include <iostream>
 #include <algorithm>
 #include <random>
-#include<cmath>
+#include <cmath>
+#include <string>
 
 #include "TPopulation.h"
 
@@ -163,7 +164,7 @@ const TCandidate* TPopulation::get_candidate_wsk(int _id) const
     return wsk;
 }
 
-TCandidate* TPopulation::rulette()
+unsigned int TPopulation::rulette()
 {
     double sum = 0.0, prev_val = 0.0, next_val = 0.0;
     int i = -1;
@@ -186,6 +187,7 @@ TCandidate* TPopulation::rulette()
             prev_val = next_val;
         } while (f != 1);
 
-    cout << "#" << i;
-    return candidates[i]->clone();
+    return i;
+    //cout << "#" << i;
+    //return candidates[i]->clone();
 }

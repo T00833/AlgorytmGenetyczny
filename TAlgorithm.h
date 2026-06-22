@@ -21,6 +21,10 @@ public:
 
 	void run();
 
+	long long dec2bin(int num);
+	int bin2dec(long long num);
+	void crossbreading(unsigned int s1, unsigned int s2);
+
 private:
 	bool is_stop();
 	bool is_max_population();

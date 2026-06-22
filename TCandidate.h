@@ -12,12 +12,12 @@ protected:
 	// 	TParam("x1", 0, 10, 1),
 	// 	TParam("x2", 0, 10, 1)
 	// };
-	int gens_count = 0;
-	std::vector<TParam> genotype;
-
 	double mark;
+	int gens_count = 0;
 
 public:
+	std::vector<TParam> genotype;
+
 	TCandidate();
 	TCandidate(const TCandidate& original);
 
@@ -25,8 +25,10 @@ public:
 	virtual TCandidate* clone() const = 0;
 
 	void copy_gens(const TCandidate& original);
+	double get_gen_val(int gen_id) const { return genotype[gen_id].get_val(); }
 
 	double get_mark() { return mark; };
+	int get_gens_count() const { return gens_count; }
 	virtual void rate() = 0;
 	void info();
 
@@ -36,5 +38,4 @@ public:
 protected:
 	virtual void init_vector() = 0;
 	void rand_gens_val();
-	double get_gen_val(int gen_id) const { return genotype[gen_id].get_val(); }
 };
