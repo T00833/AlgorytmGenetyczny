@@ -271,10 +271,10 @@ int main()
 
 			//cout << "\n\n\n";
 
-	srand(time(0));
+	//srand(time(0));
 
-	TCandidate* pattern;
-	pattern = new TCandidate_Zad3{};
+	//TCandidate* pattern;
+	//pattern = new TCandidate_Zad3{};
 
 	//TPopulation pop1{ 5, pattern };
 	//pop1.calculate();
@@ -293,15 +293,41 @@ int main()
 	//TCandidate* best = pop2.get_best_candidate();
 	//best->info();
 
-	unsigned int candidates_count = 5;
-	unsigned int max_population_count = 20;
-	unsigned int min_improvement_proc = 2;
+	//unsigned int candidates_count = 5;
+	//unsigned int max_population_count = 20;
+	//unsigned int min_improvement_proc = 2;
 
-	TAlgorithm task{ pattern,
-					candidates_count,
-					max_population_count,
-					min_improvement_proc };
-	task.run();
+	//TAlgorithm task{ pattern,
+	//				candidates_count,
+	//				max_population_count,
+	//				min_improvement_proc };
+	//task.run();
+
+
+	// TESTY RULETKI
+
+	srand(time(0));
+
+	TCandidate* pattern;
+	pattern = new TCandidate_Zad3{};
+
+	TPopulation pop1{ 5, pattern };
+	pop1.calculate();
+	pop1.info();
+
+	vector<TCandidate*> rand_cand;
+
+	cout << "Wylosowana kandydatów z id: ";
+	for (int i = 0; i < 5; i++)
+	{
+		rand_cand.push_back(pop1.rulette());
+	}
+
+	for (int i = 0; i < 5; i++)
+	{
+		rand_cand[i]->info();
+		cout << ", ";
+	}
 
 	std::cout << "\n\n\n";
 

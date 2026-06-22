@@ -30,6 +30,7 @@ public:
 	void info_best();
 
 	void choose_candidates();
+	TCandidate* rulette();
 
 private:
 	const TCandidate* get_candidate_wsk(int _id) const;

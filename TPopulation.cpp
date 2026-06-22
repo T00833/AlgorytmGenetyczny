@@ -1,10 +1,13 @@
 #include <iostream>
 #include <algorithm>
-
+#include <random>
+#include<cmath>
 
 #include "TPopulation.h"
 
 using namespace std;
+
+static mt19937 rng(random_device{}());
 
 unsigned int TPopulation::population_count = 0;
 
@@ -158,4 +161,31 @@ const TCandidate* TPopulation::get_candidate_wsk(int _id) const
 {
     const TCandidate* wsk = candidates[_id];
     return wsk;
+}
+
+TCandidate* TPopulation::rulette()
+{
+    double sum = 0.0, prev_val = 0.0, next_val = 0.0;
+    int i = -1;
+    bool f = 0;
+
+    for (TCandidate* cand : candidates)
+        {
+            sum += cand->get_mark();
+        }
+
+    uniform_real_distribution <double> range(0.0, sum);
+
+    double r = range(rng);
+
+    do
+        {
+            i++;
+            next_val += candidates[i]->get_mark();
+            if (r >= prev_val && r <= next_val) f = 1;
+            prev_val += next_val;
+        } while (f != 1);
+
+    cout << "#" << i;
+    return candidates[i]->clone();
 }
