@@ -182,8 +182,8 @@ TCandidate* TPopulation::rulette()
         {
             i++;
             next_val += candidates[i]->get_mark();
-            if (r >= prev_val && r <= next_val) f = 1;
-            prev_val += next_val;
+            if (r >= prev_val && r < next_val) f = 1;
+            prev_val = next_val;
         } while (f != 1);
 
     cout << "#" << i;
