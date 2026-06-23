@@ -21,8 +21,8 @@ public:
 
 	void run();
 
-	long long dec2bin(int num);
-	int bin2dec(long long num);
+	string double2bin(double num);
+	double bin2double(string binary);
 	void crossbreading(unsigned int s1, unsigned int s2);
 
 private:

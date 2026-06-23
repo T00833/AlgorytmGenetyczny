@@ -1,6 +1,9 @@
 #include <iostream>
-#include<random>
+#include <random>
 #include <math.h>
+
+#include <cstring>
+#include <sstream>
 
 #include "TAlgorithm.h"
 
@@ -107,42 +110,37 @@ bool TAlgorithm::is_stop()
 	return stop;
 }
 
-int TAlgorithm::bin2dec(long long num)
+string TAlgorithm::double2bin(double num)
 {
-	int dec = 0, r, i = 0;
+	uint64_t bits;
+	memcpy(&bits, &num, 8);
 
-	while (num != 0)
+	string results = "";
+	for (int i = 63; i >= 0; i--)
 	{
-		r = num % 10;
-		num /= 10;
-		dec += r * pow(2, i);
-		++i;
+		results += ((bits >> i) & 1) ? '1' : '0';
 	}
-
-	return dec;
+	return results;
 }
 
-long long TAlgorithm::dec2bin(int num)
+double TAlgorithm::bin2double(string binary)
 {
-	long long bin = 0;
-	int r, i = 1;
-
-	while (num != 0)
+	uint64_t bits = 0;
+	for (char c : binary)
 	{
-		r = num % 2;
-		num /= 2;
-		bin += r * i;
-		i *= 10;
+		bits = bits * 2 + (c - '0');
 	}
-
-	return bin;
+	double results;
+	memcpy(&results, &bits, 8);
+	return results;
 }
 
 void TAlgorithm::crossbreading(unsigned int sp1, unsigned int sp2)
 {
 	string p, g_p1, g_p2, out_gp1, out_gp2;
 	vector <int>  l_p1, l_p2;
-	int g_count[2], s1 = 0, s2 = 0;
+	unsigned int s1 = 0, s2 = 0;
+	int g_count[2];
 	g_count[0] = wsk_population_prev->candidates[sp1]->get_gens_count();
 	g_count[1] = wsk_population_prev->candidates[sp2]->get_gens_count();
 
@@ -153,14 +151,14 @@ void TAlgorithm::crossbreading(unsigned int sp1, unsigned int sp2)
 			switch (i + 1)
 			{
 			case 1:
-				p = to_string(dec2bin(wsk_population_prev->candidates[sp1]->get_gen_val(j)));
-				g_p1 += to_string(dec2bin(wsk_population_prev->candidates[sp1]->get_gen_val(j)));
+				p = double2bin(wsk_population_prev->candidates[sp1]->get_gen_val(j));
+				g_p1 += double2bin(wsk_population_prev->candidates[sp1]->get_gen_val(j));
 				l_p1.push_back(p.length());
 				s1 += p.length();
 				break;
 			case 2:
-				p = to_string(dec2bin(wsk_population_prev->candidates[sp2]->get_gen_val(j)));
-				g_p2 += to_string(dec2bin(wsk_population_prev->candidates[sp2]->get_gen_val(j)));
+				p = double2bin(wsk_population_prev->candidates[sp2]->get_gen_val(j));
+				g_p2 += double2bin(wsk_population_prev->candidates[sp2]->get_gen_val(j));
 				l_p2.push_back(p.length());
 				s2 += p.length();
 				break;
@@ -186,11 +184,11 @@ void TAlgorithm::crossbreading(unsigned int sp1, unsigned int sp2)
 			switch (i + 1)
 			{
 			case 1:
-				child1->genotype[j].set_val(stod(out_gp1.substr(prev_id, l_p1[j])));
+				child1->genotype[j].set_val(bin2double(out_gp1.substr(prev_id, l_p1[j])));
 				prev_id += l_p1[j];
 				break;
 			case 2:
-				child2->genotype[j].set_val(stod(out_gp2.substr(prev_id, l_p2[j])));
+				child2->genotype[j].set_val(bin2double(out_gp2.substr(prev_id, l_p2[j])));
 				prev_id += l_p2[j];
 				break;
 			}
