@@ -1,9 +1,7 @@
 #include <iostream>
-#include <random>
+#include <random> // losowanie liczb z silnikiem mt19937
 #include <math.h>
-
-#include <cstring>
-#include <sstream>
+#include <cstring> // memcpy
 
 #include "TAlgorithm.h"
 
@@ -140,10 +138,13 @@ void TAlgorithm::crossbreading(unsigned int sp1, unsigned int sp2)
 	string p, g_p1, g_p2, out_gp1, out_gp2;
 	vector <int>  l_p1, l_p2;
 	unsigned int s1 = 0, s2 = 0;
+
 	int g_count[2];
 	g_count[0] = wsk_population_prev->candidates[sp1]->get_gens_count();
 	g_count[1] = wsk_population_prev->candidates[sp2]->get_gens_count();
 
+	// Konwersja wartości val genow osobnika z double na binarny
+	// 2 przypadki, bo zakladam, ze krzyzowani osobnicy moga miec rozna ilosc genow
 	for (int i = 0; i < 2; i++)
 	{
 		for (int j = 0; j < g_count[i]; j++)
@@ -166,16 +167,18 @@ void TAlgorithm::crossbreading(unsigned int sp1, unsigned int sp2)
 		}
 	}
 	
+	// Losowanie punktu podzialu genow do krzyzowania
 	uniform_int_distribution <unsigned int> los(1, s1 - 1);
 	int cr_1 = los(rng);
-	 // Zakladam, ze przeciecie jest za indeksem cr
 
+	// Tworzenie binarnego ciagu wartosci genow i potomkow
 	out_gp1 = g_p1.substr(0, cr_1) + g_p2.substr(cr_1);
 	out_gp2 = g_p2.substr(0, cr_1) + g_p1.substr(cr_1);
 
 	TCandidate* child1 = wsk_population_prev->candidates[sp1]->create();
 	TCandidate* child2 = wsk_population_prev->candidates[sp2]->create();
 
+	// Konwersja skrzyzowanych wartosci genow do double
 	int prev_id = 0;
 	for (int i = 0; i < 2; i++)
 	{
@@ -194,8 +197,9 @@ void TAlgorithm::crossbreading(unsigned int sp1, unsigned int sp2)
 			}
 	}
 
+	// Dodanie potomkow do aktualnej populacji
 	wsk_population_pres->candidates.push_back(child1);
 	wsk_population_pres->candidates.push_back(child2);
 
-	cout << "Osobnik #" << sp1 << "skrzyzowal sie z osobnikiem #" << sp2 << "!\n\n";
+	cout << "Osobnik #" << sp1 << "skrzyzowal sie z osobnikiem #" << sp2 << "!\n";
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include "TPopulation.h"
 
 class TAlgorithm
@@ -21,8 +22,8 @@ public:
 
 	void run();
 
-	string double2bin(double num);
-	double bin2double(string binary);
+	std::string double2bin(double num);
+	double bin2double(std::string binary);
 	void crossbreading(unsigned int s1, unsigned int s2);
 
 private:
