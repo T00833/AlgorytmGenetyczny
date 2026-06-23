@@ -26,6 +26,7 @@ public:
 	unsigned int get_id() const { return _id; }
 	unsigned int get_candidates_count() const { return candidate_count; }
 	double get_best_val() const { return best_val; }
+	void set_candidates_count(unsigned int b) { candidate_count = b; }
 
 	void info();
 	void info_best();

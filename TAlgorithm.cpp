@@ -170,12 +170,22 @@ void TAlgorithm::crossbreading(unsigned int sp1, unsigned int sp2)
 	}
 	
 	// Losowanie punktu podzialu genow do krzyzowania
-	uniform_int_distribution <unsigned int> los(1, s1 - 1);
-	int cr_1 = los(rng);
+	int cr = 0;
+
+	if (s1 > s2)
+	{
+		uniform_int_distribution <unsigned int> los(1, s1 - 1);
+		cr = los(rng);
+	}
+	else
+	{
+		uniform_int_distribution <unsigned int> los(1, s2 - 1);
+		cr = los(rng);
+	}
 
 	// Tworzenie binarnego ciagu wartosci genow i potomkow
-	out_gp1 = g_p1.substr(0, cr_1) + g_p2.substr(cr_1);
-	out_gp2 = g_p2.substr(0, cr_1) + g_p1.substr(cr_1);
+	out_gp1 = g_p1.substr(0, cr) + g_p2.substr(cr);
+	out_gp2 = g_p2.substr(0, cr) + g_p1.substr(cr);
 
 	TCandidate* child1 = wsk_population_prev->candidates[sp1]->create();
 	TCandidate* child2 = wsk_population_prev->candidates[sp2]->create();
@@ -203,9 +213,11 @@ void TAlgorithm::crossbreading(unsigned int sp1, unsigned int sp2)
 	wsk_population_pres->candidates.push_back(child1);
 	wsk_population_pres->candidates.push_back(child2);
 
+	wsk_population_pres->set_candidates_count(wsk_population_pres->get_candidates_count() + 2);
+
 	// Wyswietlanie informacji o skrzyzowaniu sie osobnikow
 	// Wylacz jesli potrzebujesz
-	cout << "Osobnik #" << sp1 << "skrzyzowal sie z osobnikiem #" << sp2 << "!\n";
+	cout << "Osobnik #" << sp1 << " skrzyzowal sie z osobnikiem #" << sp2 << "!\n";
 }
 
 void TAlgorithm::mutation(unsigned int perc)
