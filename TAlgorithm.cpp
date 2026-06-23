@@ -41,6 +41,7 @@ void TAlgorithm::run()
 		//(*wsk_population_pres).calculate();
 		wsk_population_pres->calculate();
 
+		cout << endl << endl;
 		cout << "==Population #" << wsk_population_pres->get_id();
 		cout << " || best val: " << wsk_population_pres->get_best_val() << endl;
 
@@ -68,6 +69,7 @@ void TAlgorithm::run()
 					crossbreading(sp1, sp2);
 				}
 			}
+			mutation(3);
 		}
 	}
 }
@@ -201,5 +203,72 @@ void TAlgorithm::crossbreading(unsigned int sp1, unsigned int sp2)
 	wsk_population_pres->candidates.push_back(child1);
 	wsk_population_pres->candidates.push_back(child2);
 
+	// Wyswietlanie informacji o skrzyzowaniu sie osobnikow
+	// Wylacz jesli potrzebujesz
 	cout << "Osobnik #" << sp1 << "skrzyzowal sie z osobnikiem #" << sp2 << "!\n";
+}
+
+void TAlgorithm::mutation(unsigned int perc)
+{
+	uniform_int_distribution <unsigned int> los(0, 100);
+
+	string p, gp, out_gp;
+	vector <int>  lp;
+	unsigned int os_id = 0;
+	int g_count;
+
+	for (TCandidate* os : wsk_population_pres->candidates)
+	{
+		gp = "";
+		out_gp = "";
+		p = "";
+		g_count = 0;
+		lp.clear();
+
+		g_count = os->get_gens_count();
+
+		// Konwersja wartości val genow osobnika z double na binarny
+		for (int j = 0; j < g_count; j++)
+		{
+				p = double2bin(os->get_gen_val(j));
+				gp += double2bin(os->get_gen_val(j));
+				lp.push_back(p.length());
+		}
+
+		out_gp = gp;
+		int gc = 0, it = 0, prev_gc = 0;
+
+		// Losowa szansa na mutacje każdego genu w genotypie
+		for (int i = 0; i < gp.length(); i++)
+		{
+			// Wyswietlanie szczegolowych informacji o mutacji
+			// Wylacz jesli nie chcesz wyswietlac
+			if (i >= prev_gc && i < prev_gc + lp[it])
+			{
+				gc = it + 1;
+			}
+			if (i == prev_gc + lp[it] - 1)
+			{
+				prev_gc += lp[it];
+				it++;
+			}
+
+			if (los(rng) < perc)
+			{
+				out_gp[i] = ~gp[i];
+				cout << "Zaszla mutacja bitu #" << i << " genu #" << gc <<" osobnika #" << os_id << "!\n";
+			}
+		}
+
+		++os_id;
+
+		// Konwersja zmutowanych genow do double
+		int prev_id = 0;
+
+		for (int j = 0; j < g_count; j++)
+		{
+			os->genotype[j].set_val(bin2double(out_gp.substr(prev_id, lp[j])));
+			prev_id += lp[j];
+		}
+	}
 }

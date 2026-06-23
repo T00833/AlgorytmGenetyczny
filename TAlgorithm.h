@@ -25,6 +25,7 @@ public:
 	std::string double2bin(double num);
 	double bin2double(std::string binary);
 	void crossbreading(unsigned int s1, unsigned int s2);
+	void mutation(unsigned int perc);
 
 private:
 	bool is_stop();
