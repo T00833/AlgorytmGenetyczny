@@ -1,9 +1,12 @@
 #include <iostream>
+#include<random>
 #include <math.h>
 
 #include "TAlgorithm.h"
 
 using namespace std;
+
+static mt19937 rng(random_device{}());
 
 TAlgorithm::TAlgorithm(TCandidate* pattern,
 	unsigned int candidates_count,
@@ -49,6 +52,21 @@ void TAlgorithm::run()
 			delete wsk_population_prev;
 			wsk_population_prev = wsk_population_pres;
 			wsk_population_pres = new TPopulation{ candidates_count, pattern };
+
+			for (int i = 0; i < candidates_count; i++)
+			{
+				uniform_int_distribution <unsigned int> los(0, 100);
+				if (los(rng) > 75)
+				{
+					unsigned int sp1 = 0, sp2 = 0;
+					while (sp1 == sp2)
+					{
+						sp1 = wsk_population_prev->rulette();
+						sp2 = wsk_population_prev->rulette();
+					}
+					crossbreading(sp1, sp2);
+				}
+			}
 		}
 	}
 }
@@ -91,7 +109,7 @@ bool TAlgorithm::is_stop()
 
 int TAlgorithm::bin2dec(long long num)
 {
-	int dec, r, i = 0;
+	int dec = 0, r, i = 0;
 
 	while (num != 0)
 	{
@@ -120,15 +138,13 @@ long long TAlgorithm::dec2bin(int num)
 	return bin;
 }
 
-void TAlgorithm::crossbreading(unsigned int s1, unsigned int s2)
+void TAlgorithm::crossbreading(unsigned int sp1, unsigned int sp2)
 {
-	srand(time(0));
-
 	string p, g_p1, g_p2, out_gp1, out_gp2;
 	vector <int>  l_p1, l_p2;
 	int g_count[2], s1 = 0, s2 = 0;
-	g_count[0] = wsk_population_pres->candidates[s1]->get_gens_count();
-	g_count[1] = wsk_population_pres->candidates[s2]->get_gens_count();
+	g_count[0] = wsk_population_prev->candidates[sp1]->get_gens_count();
+	g_count[1] = wsk_population_prev->candidates[sp2]->get_gens_count();
 
 	for (int i = 0; i < 2; i++)
 	{
@@ -137,30 +153,30 @@ void TAlgorithm::crossbreading(unsigned int s1, unsigned int s2)
 			switch (i + 1)
 			{
 			case 1:
-				p = to_string(dec2bin(wsk_population_pres->candidates[s1]->get_gen_val(j)));
-				g_p1 += to_string(dec2bin(wsk_population_pres->candidates[s1]->get_gen_val(j)));
+				p = to_string(dec2bin(wsk_population_prev->candidates[sp1]->get_gen_val(j)));
+				g_p1 += to_string(dec2bin(wsk_population_prev->candidates[sp1]->get_gen_val(j)));
 				l_p1.push_back(p.length());
 				s1 += p.length();
 				break;
 			case 2:
-				p = to_string(dec2bin(wsk_population_pres->candidates[s2]->get_gen_val(j)));
-				g_p2 += to_string(dec2bin(wsk_population_pres->candidates[s2]->get_gen_val(j)));
+				p = to_string(dec2bin(wsk_population_prev->candidates[sp2]->get_gen_val(j)));
+				g_p2 += to_string(dec2bin(wsk_population_prev->candidates[sp2]->get_gen_val(j)));
 				l_p2.push_back(p.length());
 				s2 += p.length();
 				break;
 			}
 		}
 	}
-
-
-	int cr_1 = rand() % (s1 - 1) + 1;
+	
+	uniform_int_distribution <unsigned int> los(1, s1 - 1);
+	int cr_1 = los(rng);
 	 // Zakladam, ze przeciecie jest za indeksem cr
 
 	out_gp1 = g_p1.substr(0, cr_1) + g_p2.substr(cr_1);
 	out_gp2 = g_p2.substr(0, cr_1) + g_p1.substr(cr_1);
 
-	TCandidate* child1 = wsk_population_pres->candidates[s1]->create();
-	TCandidate* child2 = wsk_population_pres->candidates[s2]->create();
+	TCandidate* child1 = wsk_population_prev->candidates[sp1]->create();
+	TCandidate* child2 = wsk_population_prev->candidates[sp2]->create();
 
 	int prev_id = 0;
 	for (int i = 0; i < 2; i++)
@@ -170,16 +186,18 @@ void TAlgorithm::crossbreading(unsigned int s1, unsigned int s2)
 			switch (i + 1)
 			{
 			case 1:
-				child1->genotype[j].set_val(stod(out_gp1.substr(prev_id, l_p1[j] - 1)));
-				prev_id = l_p1[j];
+				child1->genotype[j].set_val(stod(out_gp1.substr(prev_id, l_p1[j])));
+				prev_id += l_p1[j];
 				break;
 			case 2:
-				child2->genotype[j].set_val(stod(out_gp2.substr(prev_id, l_p2[j] - 1)));
-				prev_id = l_p2[j];
+				child2->genotype[j].set_val(stod(out_gp2.substr(prev_id, l_p2[j])));
+				prev_id += l_p2[j];
 				break;
 			}
 	}
 
 	wsk_population_pres->candidates.push_back(child1);
 	wsk_population_pres->candidates.push_back(child2);
+
+	cout << "Osobnik #" << sp1 << "skrzyzowal sie z osobnikiem #" << sp2 << "!\n\n";
 }

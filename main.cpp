@@ -306,7 +306,7 @@ int main()
 
 	// TESTY RULETKI
 
-	srand(time(0));
+	/*srand(time(0));
 
 	TCandidate* pattern;
 	pattern = new TCandidate_Zad3{};
@@ -327,7 +327,24 @@ int main()
 	{
 		rand_cand[i]->info();
 		cout << ", ";
-	}
+	}*/
+
+	// Test krzyzowania
+
+	srand(time(0));
+
+	TCandidate* pattern;
+	pattern = new TCandidate_Zad3{};
+
+	unsigned int candidates_count = 5;
+	unsigned int max_population_count = 20;
+	unsigned int min_improvement_proc = 2;
+
+	TAlgorithm task{ pattern,
+					candidates_count,
+					max_population_count,
+					min_improvement_proc };
+	task.run();
 
 	std::cout << "\n\n\n";
 
