@@ -174,16 +174,16 @@ void TAlgorithm::crossbreading(unsigned int sp1, unsigned int sp2)
 
 	if (s1 > s2)
 	{
-		uniform_int_distribution <unsigned int> los(1, s1 - 1);
+		uniform_int_distribution <unsigned int> los(1, s2 - 1);
 		cr = los(rng);
+		
 	}
 	else
 	{
-		uniform_int_distribution <unsigned int> los(1, s2 - 1);
+		uniform_int_distribution <unsigned int> los(1, s1 - 1);
 		cr = los(rng);
 	}
 
-	// Tworzenie binarnego ciagu wartosci genow i potomkow
 	out_gp1 = g_p1.substr(0, cr) + g_p2.substr(cr);
 	out_gp2 = g_p2.substr(0, cr) + g_p1.substr(cr);
 
